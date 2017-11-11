@@ -44,7 +44,7 @@ Add a system cron job to schedule the application execution every minute:
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
-## Laravel
+## Laravel
 
 Made with love with Laravel & packages creators (like [Spatie](https://spatie.be)).
 
