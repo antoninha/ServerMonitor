@@ -9,7 +9,9 @@ Mattermost notification on [ThibaudDauce laravel-notifications-mattermost](https
 
 Here is a light quick start.
 
-### Get the code
+### Get the code
+
+Fetch the code :
 
 ```
 git clone git@framagit.org:Cyrille37/ServersMonitor.git
@@ -18,6 +20,7 @@ or just download archive [ZIP](https://framagit.org/Cyrille37/ServersMonitor/rep
  
 ### install the software
 
+Need to fetch dependencies with composer:
 ```
 $ composer install
 $ cp .env.example .env
