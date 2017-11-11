@@ -27,7 +27,7 @@ $ cp .env.example .env
 $ ./artisan key:generate
 ```
 
-### configuration
+### Configuration
 
 Adapt configuration via `.env` file.
 
