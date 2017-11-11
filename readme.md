@@ -7,6 +7,8 @@ Mattermost notification on [ThibaudDauce laravel-notifications-mattermost](https
 
 ## Installation
 
+Here is a light quick start.
+
 ### Get the code
 
 ```
