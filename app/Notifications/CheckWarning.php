@@ -39,6 +39,7 @@ class CheckWarning extends SpatieCheckWarning
 		->text( '**WARNING**' )
 		->attachment(function ( MattermostAttachment $attachment) {
 			$attachment->authorName('Servers Monitor')
+			->info()
 			->title( $this->getSubject() )
 			->text( $this->getMessageText() ); // Markdown supported.
 		});

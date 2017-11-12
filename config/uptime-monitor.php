@@ -9,13 +9,13 @@ return [
     'notifications' => [
 
         'notifications' => [
-            \Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckFailed::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckRecovered::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckSucceeded::class => [],
+        	\Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckFailed::class => [ThibaudDauce\Mattermost\MattermostChannel::class],
+        	\Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckRecovered::class => [ThibaudDauce\Mattermost\MattermostChannel::class],
+        	\Spatie\UptimeMonitor\Notifications\Notifications\UptimeCheckSucceeded::class => [ThibaudDauce\Mattermost\MattermostChannel::class],
 
-            \Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckFailed::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\CertificateExpiresSoon::class => ['slack'],
-            \Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckSucceeded::class => [],
+        	\Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckFailed::class => [ThibaudDauce\Mattermost\MattermostChannel::class],
+        	\Spatie\UptimeMonitor\Notifications\Notifications\CertificateExpiresSoon::class => [ThibaudDauce\Mattermost\MattermostChannel::class],
+        	\Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckSucceeded::class => [ThibaudDauce\Mattermost\MattermostChannel::class],
         ],
 
         /*

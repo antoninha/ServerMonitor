@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Notifications;
+namespace App\Notifications;
 
 use Illuminate\Notifications\Notifiable as NotifiableTrait;
 use Spatie\UptimeMonitor\Notifications\Notifiable as SpatieUptimeMonitorNotifiable ;

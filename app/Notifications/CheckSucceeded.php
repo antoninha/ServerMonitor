@@ -37,6 +37,7 @@ class CheckSucceeded extends SpatieCheckSucceeded
 		->text( '**SUCCESS**' )
 		->attachment(function ( MattermostAttachment $attachment) {
 			$attachment->authorName('Servers Monitor')
+			->success()
 			->title( $this->getSubject() )
 			->text( $this->getMessageText() ); // Markdown supported.
 		});

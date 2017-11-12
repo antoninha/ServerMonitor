@@ -49,6 +49,7 @@ class CheckFailed extends SpatieCheckFailed
 		->text( '**ERROR**' )
 		->attachment(function ( MattermostAttachment $attachment) {
 			$attachment->authorName('Servers Monitor')
+			->error()
 			->title( $this->getSubject() )
 			->text( $this->getMessageText() ); // Markdown supported.
 		});
