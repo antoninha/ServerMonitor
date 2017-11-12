@@ -64,9 +64,19 @@ Route::post('/monitor/list', function (Request $request)
 
 	if( $token != config('uptime-monitor.notifications.mattermost.slash_token') )
 		throw new AccessDeniedHttpException();
-		
-	//Artisan::call('monitor:list', []);
-	Artisan::call('monitor:'.$request->get('text'), []);
+
+	$sub_command = trim( $request->get('text') );
+	if( preg_match('#^help#', $sub_command) )
+	{
+		//Artisan::call('monitor:list', []);
+		Artisan::call('help monitor' );
+	}
+	else
+	{
+		//Artisan::call('monitor:list', []);
+		Artisan::call('monitor:'.$sub_command, []);
+	}
+
 	$cmd_result = Artisan::output();
 
 	$text = 'Uptime Monitor list at '. Carbon::now()->format('Y-m-d H:i:s')
