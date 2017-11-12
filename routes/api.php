@@ -66,10 +66,14 @@ Route::post('/monitor/list', function (Request $request)
 		throw new AccessDeniedHttpException();
 
 	$sub_command = trim( $request->get('text') );
-	if( preg_match('#^help#', $sub_command) )
+	if( preg_match('#^help$#', $sub_command) )
 	{
 		//Artisan::call('monitor:list', []);
-		Artisan::call('help monitor' );
+		Artisan::call('list monitor' );
+	}
+	else if( preg_match('#^help#', $sub_command) )
+	{
+		Artisan::call('help monitor:'.$sub_command, []);
 	}
 	else
 	{
