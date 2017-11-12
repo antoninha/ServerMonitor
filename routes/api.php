@@ -6,6 +6,7 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +50,10 @@ Route::post('/monitor/list', function (Request $request)
 		throw new AccessDeniedHttpException();
 		
 	Artisan::call('monitor:list', []);
-	$text = Artisan::output();
+	$cmd_result = Artisan::output();
+
+	$text = 'Uptime Monitor list at '. Carbon::now()->format('Y-m-d H:i:s')
+		."\n".$cmd_result ;
 
 	return response()->json([
 		'response_type' => 'in_channel',
