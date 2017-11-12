@@ -65,26 +65,34 @@ Route::post('/monitor/list', function (Request $request)
 	if( $token != config('uptime-monitor.notifications.mattermost.slash_token') )
 		throw new AccessDeniedHttpException();
 
-	$sub_command = trim( $request->get('text') );
-	if( preg_match('#^help$#', $sub_command) )
+	try
 	{
-		//Artisan::call('monitor:list', []);
-		Artisan::call('list monitor' );
-	}
-	else if( preg_match('#^help#', $sub_command) )
-	{
-		Artisan::call('help monitor:'.$sub_command, []);
-	}
-	else
-	{
-		//Artisan::call('monitor:list', []);
-		Artisan::call('monitor:'.$sub_command, []);
-	}
-
-	$cmd_result = Artisan::output();
-
-	$text = 'Uptime Monitor list at '. Carbon::now()->format('Y-m-d H:i:s')
+		$sub_command = trim( $request->get('text') );
+		if( preg_match('#^help$#', $sub_command) )
+		{
+			//Artisan::call('monitor:list', []);
+			Artisan::call('list monitor' );
+		}
+		else if( preg_match('#^help#', $sub_command) )
+		{
+			Artisan::call('help monitor:'.$sub_command, []);
+		}
+		else
+		{
+			//Artisan::call('monitor:list', []);
+			Artisan::call('monitor:'.$sub_command, []);
+		}
+		
+		$cmd_result = Artisan::output();
+		
+		$text = 'Uptime Monitor list at '. Carbon::now()->format('Y-m-d H:i:s')
 		."\n".$cmd_result ;
+
+	}
+	catch (Exception $ex )
+	{
+		$text = 'An error occured: ' .get_class($ex). ' ' . $ex->getMessage() ;
+	}
 
 	return response()->json([
 		'response_type' => 'in_channel',
