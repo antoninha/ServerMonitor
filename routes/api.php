@@ -44,7 +44,7 @@ Route::post('/server-monitor/list', function (Request $request)
 Route::post('/monitor/list', function (Request $request)
 {
 	$token = $request->get('token');
-	Log::info('request: '.print_r($request->all(),true) );
+	//Log::info('request: '.print_r($request->all(),true) );
 
 	/* [2017-11-12 09:34:27] production.INFO: request: Array
 	(
@@ -84,7 +84,7 @@ Route::post('/monitor/list', function (Request $request)
 		}
 
 		$cmd_result = Artisan::output();
-		
+
 		$text = 'Uptime Monitor list at '. Carbon::now()->format('Y-m-d H:i:s')
 		."\n".$cmd_result ;
 
