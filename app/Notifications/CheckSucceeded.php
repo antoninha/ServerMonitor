@@ -11,6 +11,7 @@ use Spatie\ServerMonitor\Notifications\Notifications\CheckSucceeded as SpatieChe
 use Spatie\ServerMonitor\Events\CheckSucceeded as CheckSucceededEvent;
 use ThibaudDauce\Mattermost\MattermostChannel;
 use ThibaudDauce\Mattermost\Message as MattermostMessage;
+use ThibaudDauce\Mattermost\Attachment as MattermostAttachment ;
 
 class CheckSucceeded extends SpatieCheckSucceeded
 {
@@ -22,14 +23,22 @@ class CheckSucceeded extends SpatieCheckSucceeded
 	 */
 	public function toMattermost($notifiable)
 	{
+		/*
+        return (new SlackMessage)
+            ->attachment(function (SlackAttachment $attachment) {
+                $attachment
+                    ->title($this->getSubject())
+                    ->content($this->getMessageText())
+                    ->fallback($this->getMessageText())
+                    ->timestamp(Carbon::now());
+            });
+		 */
 		return (new MattermostMessage)
-		->username('Helpdesk')
-		->iconUrl(url('/images/logo_only.png'))
-		->text("A new ticket has been opened.")
-		->attachment(function ($attachment) {
-			$attachment->authorName($notifiable->name)
-			->title("[Ticket #1] Title of the ticket", '/tickets/1')
-			->text("Message of **the ticket**"); // Markdown supported.
+		->text( '**SUCCESS**' )
+		->attachment(function ( MattermostAttachment $attachment) {
+			$attachment->authorName('Servers Monitor')
+			->title( $this->getSubject() )
+			->text( $this->getMessageText() ); // Markdown supported.
 		});
 	}
 

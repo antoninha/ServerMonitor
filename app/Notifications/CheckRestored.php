@@ -11,6 +11,7 @@ use Spatie\ServerMonitor\Notifications\Notifications\CheckRestored as SpatieChec
 use Spatie\ServerMonitor\Events\CheckRestored as CheckRestoredEvent;
 use ThibaudDauce\Mattermost\MattermostChannel;
 use ThibaudDauce\Mattermost\Message as MattermostMessage;
+use ThibaudDauce\Mattermost\Attachment as MattermostAttachment ;
 
 class CheckRestored extends SpatieCheckRestored
 {
@@ -22,14 +23,23 @@ class CheckRestored extends SpatieCheckRestored
 	 */
 	public function toMattermost($notifiable)
 	{
+		/*
+        return (new SlackMessage)
+            ->success()
+            ->attachment(function (SlackAttachment $attachment) {
+                $attachment
+                    ->title($this->getSubject())
+                    ->content($this->getMessageText())
+                    ->fallback($this->getMessageText())
+                    ->timestamp(Carbon::now());
+            });
+		 */
 		return (new MattermostMessage)
-		->username('Helpdesk')
-		->iconUrl(url('/images/logo_only.png'))
-		->text("A new ticket has been opened.")
-		->attachment(function ($attachment) {
-			$attachment->authorName($notifiable->name)
-			->title("[Ticket #1] Title of the ticket", '/tickets/1')
-			->text("Message of **the ticket**"); // Markdown supported.
+		->text( '**SUCCESS RESTORED**' )
+		->attachment(function ( MattermostAttachment $attachment) {
+			$attachment->authorName('Servers Monitor')
+			->title( $this->getSubject() )
+			->text( $this->getMessageText() ); // Markdown supported.
 		});
 	}
 

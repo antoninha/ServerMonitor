@@ -11,6 +11,7 @@ use Spatie\ServerMonitor\Notifications\Notifications\CheckFailed as SpatieCheckF
 use Spatie\ServerMonitor\Events\CheckFailed as CheckFailedEvent;
 use ThibaudDauce\Mattermost\MattermostChannel;
 use ThibaudDauce\Mattermost\Message as MattermostMessage;
+use ThibaudDauce\Mattermost\Attachment as MattermostAttachment ;
 
 class CheckFailed extends SpatieCheckFailed
 {
@@ -22,6 +23,18 @@ class CheckFailed extends SpatieCheckFailed
 	 */
 	public function toMattermost($notifiable)
 	{
+		/*
+        return (new SlackMessage)
+            ->error()
+            ->attachment(function (SlackAttachment $attachment) {
+                $attachment
+                    ->title($this->getSubject())
+                    ->content($this->getMessageText())
+                    ->fallback($this->getMessageText())
+                    ->timestamp(Carbon::now());
+            });
+		 */
+		/*
 		return (new MattermostMessage)
 		->username('Helpdesk')
 		->iconUrl(url('/images/logo_only.png'))
@@ -30,6 +43,14 @@ class CheckFailed extends SpatieCheckFailed
 			$attachment->authorName($notifiable->name)
 			->title("[Ticket #1] Title of the ticket", '/tickets/1')
 			->text("Message of **the ticket**"); // Markdown supported.
+		});
+		*/
+		return (new MattermostMessage)
+		->text( '**ERROR**' )
+		->attachment(function ( MattermostAttachment $attachment) {
+			$attachment->authorName('Servers Monitor')
+			->title( $this->getSubject() )
+			->text( $this->getMessageText() ); // Markdown supported.
 		});
 	}
 

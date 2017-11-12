@@ -29,10 +29,10 @@ return [
     'notifications' => [
 
         'notifications' => [
-        	App\CheckSucceeded::class => ['Mattermost'],
-            App\CheckRestored::class => ['Mattermost'],
-            App\CheckWarning::class => ['Mattermost'],
-            App\CheckFailed::class => ['Mattermost'],
+        		App\Notifications\CheckSucceeded::class => [ThibaudDauce\Mattermost\MattermostChannel::class],
+        		App\Notifications\CheckRestored::class => [ThibaudDauce\Mattermost\MattermostChannel::class],
+        		App\Notifications\CheckWarning::class => [ThibaudDauce\Mattermost\MattermostChannel::class],
+        		App\Notifications\CheckFailed::class => [ThibaudDauce\Mattermost\MattermostChannel::class],
         ],
 
         /*

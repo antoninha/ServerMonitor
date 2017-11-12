@@ -11,6 +11,7 @@ use Spatie\ServerMonitor\Notifications\Notifications\CheckWarning as SpatieCheck
 use Spatie\ServerMonitor\Events\CheckWarning as CheckWarningEvent;
 use ThibaudDauce\Mattermost\MattermostChannel;
 use ThibaudDauce\Mattermost\Message as MattermostMessage;
+use ThibaudDauce\Mattermost\Attachment as MattermostAttachment ;
 
 class CheckWarning extends SpatieCheckWarning
 {
@@ -23,14 +24,23 @@ class CheckWarning extends SpatieCheckWarning
 	 */
 	public function toMattermost($notifiable)
 	{
+		/*
+        return (new SlackMessage)
+            ->warning()
+            ->attachment(function (SlackAttachment $attachment) {
+                $attachment
+                    ->title($this->getSubject())
+                    ->content($this->getMessageText())
+                    ->fallback($this->getMessageText())
+                    ->timestamp(Carbon::now());
+            });
+		 */
 		return (new MattermostMessage)
-		->username('Helpdesk')
-		->iconUrl(url('/images/logo_only.png'))
-		->text("A new ticket has been opened.")
-		->attachment(function ($attachment) {
-			$attachment->authorName($notifiable->name)
-			->title("[Ticket #1] Title of the ticket", '/tickets/1')
-			->text("Message of **the ticket**"); // Markdown supported.
+		->text( '**WARNING**' )
+		->attachment(function ( MattermostAttachment $attachment) {
+			$attachment->authorName('Servers Monitor')
+			->title( $this->getSubject() )
+			->text( $this->getMessageText() ); // Markdown supported.
 		});
 	}
 	
