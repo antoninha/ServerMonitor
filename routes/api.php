@@ -46,10 +46,27 @@ Route::post('/monitor/list', function (Request $request)
 	$token = $request->get('token');
 	Log::info('request: '.print_r($request->all(),true) );
 
+	/* [2017-11-12 09:34:27] production.INFO: request: Array
+	(
+		say: /the_command arg1 arg2
+		response: 
+		    [channel_id] => xyz123xyz123xyz123
+		    [channel_name] => the channel name
+		    [command] => /the_command
+		    [response_url] => https://framateam.org/hooks/commands/xyz123xyz123xyz123
+		    [team_domain] => the team
+		    [team_id] => xyz123xyz123xyz123
+		    [text] => arg1 arg2
+		    [token] => abc123abc123
+		    [user_id] => klm123klm123klm
+		    [user_name] => user_name
+	) */
+
 	if( $token != config('uptime-monitor.notifications.mattermost.slash_token') )
 		throw new AccessDeniedHttpException();
 		
-	Artisan::call('monitor:list', []);
+	//Artisan::call('monitor:list', []);
+	Artisan::call('monitor:'.$request->get('text'), []);
 	$cmd_result = Artisan::output();
 
 	$text = 'Uptime Monitor list at '. Carbon::now()->format('Y-m-d H:i:s')
