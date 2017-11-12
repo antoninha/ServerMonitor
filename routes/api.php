@@ -39,3 +39,20 @@ Route::post('/server-monitor/list', function (Request $request)
 		'text' => $text ,
 	]);
 });
+
+Route::post('/monitor/list', function (Request $request)
+{
+	$token = $request->get('token');
+	Log::info('token: '.$token );
+	
+	if( $token != config('server-monitor.notifications.mattermost.slash_token') )
+		throw new AccessDeniedHttpException();
+		
+	Artisan::call('monitor:list', []);
+	$text = Artisan::output();
+
+	return response()->json([
+		'response_type' => 'in_channel',
+		'text' => $text ,
+	]);
+});
