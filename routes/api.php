@@ -27,7 +27,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request)
 Route::post('/server-monitor/list', function (Request $request)
 {
 	$token = $request->get('token');
-	Log::info('token: '.$token );
+	Log::info('request: '.print_r($request,true) );
 
 	if( $token != config('server-monitor.notifications.mattermost.slash_token') )
 		throw new AccessDeniedHttpException();
