@@ -31,8 +31,11 @@ Route::post('/server-monitor/list', function (Request $request)
 	if( $token != config('server-monitor.notifications.mattermost.slash_token') )
 		throw new AccessDeniedHttpException();
 
+	Artisan::call('server-monitor:list-checks', []);
+	$text = Artisan::output();
+
 	return response()->json([
 		'response_type' => 'in_channel',
-		'text' => 'Yep!' ,
+		'text' => $text ,
 	]);
 });
