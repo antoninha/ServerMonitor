@@ -58,7 +58,7 @@ return [
          * notifiable will use the variables specified in this config file.
          */
    		//'notifiable' => \Spatie\ServerMonitor\Notifications\Notifiable::class,
-   		'notifiable' => App\Notifiable::class,
+    	'notifiable' => App\Notifications\ServerMonitorNotifiable::class,
 
         /*
          * The date format used in notifications.

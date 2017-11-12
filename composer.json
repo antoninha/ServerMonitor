@@ -10,6 +10,7 @@
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "spatie/laravel-server-monitor": "^1.2",
+        "spatie/laravel-uptime-monitor": "^3.0",
         "thibaud-dauce/laravel-notifications-mattermost": "^1.0"
     },
     "require-dev": {

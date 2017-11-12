@@ -3,9 +3,9 @@
 namespace App\Notifications;
 
 use Illuminate\Notifications\Notifiable as NotifiableTrait;
-use Spatie\ServerMonitor\Notifications\Notifiable as SpatieNotifiable;
+use Spatie\ServerMonitor\Notifications\Notifiable as SpatieServerMonitorNotifiable ;
 
-class Notifiable extends SpatieNotifiable
+class ServerMonitorNotifiable extends SpatieServerMonitorNotifiable
 {
 	/**
 	 * Route notifications for the Mattermost channel.

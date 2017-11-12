@@ -1,9 +1,7 @@
 
 ## ServersMonitor
 
-Built on [Spatie laravel-server-monitor](https://docs.spatie.be/laravel-server-monitor/v1/introduction).
-
-Mattermost notification on [ThibaudDauce laravel-notifications-mattermost](https://github.com/ThibaudDauce/laravel-notifications-mattermost).
+Built on [Spatie laravel-server-monitor](https://docs.spatie.be/laravel-server-monitor/v1/introduction) and [Spatie uptime-monitor](https://docs.spatie.be/laravel-uptime-monitor/v2/) with Mattermost notification from [ThibaudDauce laravel-notifications-mattermost](https://github.com/ThibaudDauce/laravel-notifications-mattermost).
 
 ## Installation
 
