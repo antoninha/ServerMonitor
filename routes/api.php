@@ -5,6 +5,7 @@ use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Illuminate\Support\Facades\Log;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request)
 Route::post('/server-monitor/list', function (Request $request)
 {
 	$token = $request->get('token');
+	Log::info('token: '.$token );
+
 	if( $token != config('server-monitor.notifications.mattermost.slash_token') )
 		throw new AccessDeniedHttpException();
 
