@@ -35,9 +35,9 @@ class Kernel extends ConsoleKernel
     		->withoutOverlapping()
     		->everyMinute();
 
-    	$schedule->command('monitor:check-certificate')
-    		->withoutOverlapping()
-    		->daily();
+		$schedule->command('monitor:check-certificate')
+			->withoutOverlapping()
+			->daily();
 
     }
 
