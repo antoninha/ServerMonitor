@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Notifications\Notifications;
+namespace App\Notifications;
 
 use Carbon\Carbon;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -8,32 +8,12 @@ use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 use Spatie\UptimeMonitor\Events\CertificateCheckSucceeded as ValidCertificateFoundEvent;
+use Spatie\UptimeMonitor\Notifications\Notifications\CertificateCheckSucceeded as SpatieCertificateCheckSucceeded ;
 
-class CertificateCheckSucceeded extends BaseNotification
+class CertificateCheckSucceeded extends SpatieCertificateCheckSucceeded
 {
-    /** @var \Spatie\UptimeMonitor\Events\CertificateCheckSucceeded */
-    public $event;
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
-    {
-        $mailMessage = (new MailMessage)
-            ->subject($this->getMessageText())
-            ->line($this->getMessageText());
-
-        foreach ($this->getMonitorProperties() as $name => $value) {
-            $mailMessage->line($name.': '.$value);
-        }
-
-        return $mailMessage;
-    }
-
-    public function toSlack($notifiable)
+	/*
+	public function toSlack($notifiable)
     {
         return (new SlackMessage)
             ->attachment(function (SlackAttachment $attachment) {
@@ -45,16 +25,26 @@ class CertificateCheckSucceeded extends BaseNotification
                     ->timestamp(Carbon::now());
             });
     }
+    */
 
-    public function setEvent(ValidCertificateFoundEvent $event)
-    {
-        $this->event = $event;
+	/**
+	 * Get the Mattermost representation of the notification.
+	 *
+	 * @param  mixed  $notifiable
+	 * @return \ThibaudDauce\Mattermost\Message
+	 */
+	public function toMattermost($notifiable)
+	{
+		return (new MattermostMessage)
+		->text( '**SUCCESS**' )
+		->attachment(function ( MattermostAttachment $attachment) {
+			$attachment->authorName('Servers Monitor')
+			->success()
+			->title( $this->getMessageText() )
+			->text( $this->getMonitor()->certificate_check_failure_reason ) // Markdown supported.
+			->text( $this->getMonitor()->certificate_issuer )
+			;
+		});
+	}
 
-        return $this;
-    }
-
-    public function getMessageText(): string
-    {
-        return "SSL certificate for {$this->event->monitor->url} is valid";
-    }
 }

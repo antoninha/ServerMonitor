@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\UptimeMonitor\Notifications\Notifications;
+namespace App\Notifications;
 
 use Carbon\Carbon;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -8,32 +8,11 @@ use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Spatie\UptimeMonitor\Notifications\BaseNotification;
 use Spatie\UptimeMonitor\Events\CertificateExpiresSoon as SoonExpiringSslCertificateFoundEvent;
+use Spatie\UptimeMonitor\Notifications\Notifications\CertificateExpiresSoon as SpatieCertificateExpiresSoon ;
 
-class CertificateExpiresSoon extends BaseNotification
+class CertificateExpiresSoon extends SpatieCertificateExpiresSoon
 {
-    /** @var \Spatie\UptimeMonitor\Events\CertificateExpiresSoon */
-    public $event;
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
-    {
-        $mailMessage = (new MailMessage)
-            ->error()
-            ->subject($this->getMessageText())
-            ->line($this->getMessageText());
-
-        foreach ($this->getMonitorProperties() as $name => $value) {
-            $mailMessage->line($name.': '.$value);
-        }
-
-        return $mailMessage;
-    }
-
+	/*
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
@@ -47,16 +26,26 @@ class CertificateExpiresSoon extends BaseNotification
                     ->timestamp(Carbon::now());
             });
     }
+    */
 
-    public function setEvent(SoonExpiringSslCertificateFoundEvent $event)
-    {
-        $this->event = $event;
+	/**
+	 * Get the Mattermost representation of the notification.
+	 *
+	 * @param  mixed  $notifiable
+	 * @return \ThibaudDauce\Mattermost\Message
+	 */
+	public function toMattermost($notifiable)
+	{
+		return (new MattermostMessage)
+		->text( '**WARNING**' )
+		->attachment(function ( MattermostAttachment $attachment) {
+			$attachment->authorName('Servers Monitor')
+			->info()
+			->title( $this->getMessageText() )
+			->text( $this->getMonitor()->certificate_check_failure_reason ) // Markdown supported.
+			->text( $this->getMonitor()->certificate_issuer )
+			;
+		});
+	}
 
-        return $this;
-    }
-
-    protected function getMessageText(): string
-    {
-        return "SSL certificate for {$this->event->monitor->url} expires soon";
-    }
 }
