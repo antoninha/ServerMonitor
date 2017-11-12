@@ -44,8 +44,8 @@ Route::post('/server-monitor/list', function (Request $request)
 Route::post('/monitor/list', function (Request $request)
 {
 	$token = $request->get('token');
-	Log::info('token: '.$token );
-	
+	Log::info('request: '.print_r($request,true) );
+
 	if( $token != config('uptime-monitor.notifications.mattermost.slash_token') )
 		throw new AccessDeniedHttpException();
 		
