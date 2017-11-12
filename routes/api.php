@@ -82,7 +82,7 @@ Route::post('/monitor/list', function (Request $request)
 			//Artisan::call('monitor:list', []);
 			Artisan::call('monitor:'.$sub_command, []);
 		}
-		
+
 		$cmd_result = Artisan::output();
 		
 		$text = 'Uptime Monitor list at '. Carbon::now()->format('Y-m-d H:i:s')
