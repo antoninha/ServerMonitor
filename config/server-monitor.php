@@ -51,6 +51,7 @@ return [
 
         'mattermost' => [
             'webhook_url' => env('SERVER_MONITOR_MATTERMOST_WEBHOOK_URL'),
+        	'slash_token' => env('SERVER_MONITOR_MATTERMOST_SLASH_TOKEN'),
         ],
 
 		/*
