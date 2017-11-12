@@ -22,7 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request)
     return $request->user();
 });
 
-Route::get('/server-monitor/list', function (Request $request)
+Route::post('/server-monitor/list', function (Request $request)
 {
 	$token = $request->get('token');
 	if( $token != config('server-monitor.notifications.mattermost.slash_token') )
