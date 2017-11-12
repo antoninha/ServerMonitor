@@ -16,3 +16,13 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('toto', function ()
+{
+	//$this->comment(Inspiring::quote());
+	//$this->call( 'list', ['namespace'=>'monitor'] );
+	
+	$sub_command= 'list' ;
+	$this->call('help', ['command_name'=>'monitor:'.$sub_command]);
+
+})->describe('Try some stuff');

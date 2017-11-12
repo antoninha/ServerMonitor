@@ -7,6 +7,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,23 +71,22 @@ Route::post('/monitor/list', function (Request $request)
 		$sub_command = trim( $request->get('text') );
 		if( preg_match('#^help$#', $sub_command) )
 		{
-			//Artisan::call('monitor:list', []);
-			Artisan::call('list monitor' );
+			Artisan::call('list', ['namespace'=>'monitor'] );
 		}
 		else if( preg_match('#^help#', $sub_command) )
 		{
-			Artisan::call('help monitor:'.$sub_command, []);
+			Artisan::call('help', ['command_name'=>'monitor:'.$sub_command]);
 		}
 		else
 		{
-			//Artisan::call('monitor:list', []);
 			Artisan::call('monitor:'.$sub_command, []);
 		}
 
 		$cmd_result = Artisan::output();
 
-		$text = 'Uptime Monitor list at '. Carbon::now()->format('Y-m-d H:i:s')
-		."\n".$cmd_result ;
+		$text = 'Uptime Monitor list at '
+			. Carbon::now()->format('Y-m-d H:i:s')
+			."\n".$cmd_result ;
 
 	}
 	catch (Exception $ex )
