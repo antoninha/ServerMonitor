@@ -45,7 +45,7 @@ Route::post('/monitor/list', function (Request $request)
 	$token = $request->get('token');
 	Log::info('token: '.$token );
 	
-	if( $token != config('server-monitor.notifications.mattermost.slash_token') )
+	if( $token != config('uptime-monitor.notifications.mattermost.slash_token') )
 		throw new AccessDeniedHttpException();
 		
 	Artisan::call('monitor:list', []);

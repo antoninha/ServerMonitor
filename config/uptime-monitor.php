@@ -40,6 +40,7 @@ return [
 
    		'mattermost' => [
 			'webhook_url' => env('UPTIME_MONITOR_MATTERMOST_WEBHOOK_URL'),
+			'slash_token' => env('UPTIME_MONITOR_MATTERMOST_SLASH_TOKEN'),
    		],
 
     	/*
