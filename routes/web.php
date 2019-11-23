@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'MonitorController@index');
+Route::get('/list', 'MonitorController@index');
+Route::get('/add', 'MonitorController@add');
+Route::post('/add', 'MonitorController@add');
+Route::get('/delete', 'MonitorController@delete');
+Route::post('/delete', 'MonitorController@delete');
